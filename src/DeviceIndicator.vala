@@ -13,6 +13,7 @@ namespace KDEConnectIndicator {
         private Gtk.MenuItem battery_item;
         private Gtk.MenuItem status_item;
         private Gtk.MenuItem browse_item;
+        private Gtk.MenuItem browse_pictures_item;
         private Gtk.MenuItem send_item;
         private Gtk.SeparatorMenuItem separator;
         private Gtk.MenuItem pair_item;
@@ -36,6 +37,8 @@ namespace KDEConnectIndicator {
             menu.append (new Gtk.SeparatorMenuItem ());
             browse_item = new Gtk.MenuItem.with_label ("Browse device");
             menu.append(browse_item);
+            browse_item = new Gtk.MenuItem.with_label ("Browse pictures");
+            menu.append(browse_item);
             send_item = new Gtk.MenuItem.with_label ("Send file");
             menu.append(send_item);
             separator = new Gtk.SeparatorMenuItem ();
@@ -56,6 +59,9 @@ namespace KDEConnectIndicator {
             indicator.set_menu (menu);
 
             browse_item.activate.connect (() => {
+                device.browse ();
+            });
+            browse_pictures_item.activate.connect (() => {
                 device.browse ();
             });
             send_item.activate.connect (() => {
@@ -159,6 +165,8 @@ namespace KDEConnectIndicator {
 
             browse_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
             browse_item.sensitive = reachable;
+            browse_pictures_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
+            browse_pictures_item.sensitive = reachable;
             send_item.visible = paired && device.has_plugin ("kdeconnect_share");
             send_item.sensitive = reachable;
             separator.visible = browse_item.visible || send_item.visible;
