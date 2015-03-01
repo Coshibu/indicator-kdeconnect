@@ -13,7 +13,13 @@ namespace KDEConnectIndicator {
         private Gtk.MenuItem battery_item;
         private Gtk.MenuItem status_item;
         private Gtk.MenuItem browse_item;
+
+        private Gtk.MenuItem browse_home_item;
+        private Gtk.MenuItem browse_camera_item;
         private Gtk.MenuItem browse_pictures_item;
+        private Gtk.MenuItem browse_download_item;
+        private Gtk.MenuItem browse_music_item;
+
         private Gtk.MenuItem send_item;
         private Gtk.SeparatorMenuItem separator;
         private Gtk.MenuItem pair_item;
@@ -37,8 +43,18 @@ namespace KDEConnectIndicator {
             menu.append (new Gtk.SeparatorMenuItem ());
             browse_item = new Gtk.MenuItem.with_label ("Browse device");
             menu.append(browse_item);
-            browse_item = new Gtk.MenuItem.with_label ("Browse pictures");
-            menu.append(browse_item);
+            
+            browse_home_item = new Gtk.MenuItem.with_label ("Browse home folder");
+            menu.append(browse_home_item);       
+            browse_camera_item = new Gtk.MenuItem.with_label ("Browse camera pictures");
+            menu.append(browse_camera_item);
+            browse_pictures_item = new Gtk.MenuItem.with_label ("Browse pictures");
+            menu.append(browse_pictures_item);
+            browse_download_item = new Gtk.MenuItem.with_label ("Browse download");
+            menu.append(browse_download_item);
+            browse_music_item = new Gtk.MenuItem.with_label ("Browse music");
+            menu.append(browse_music_item);
+                       
             send_item = new Gtk.MenuItem.with_label ("Send file");
             menu.append(send_item);
             separator = new Gtk.SeparatorMenuItem ();
@@ -61,9 +77,24 @@ namespace KDEConnectIndicator {
             browse_item.activate.connect (() => {
                 device.browse ();
             });
-            browse_pictures_item.activate.connect (() => {
-                device.browse ();
+            
+            browse_home_item.activate.connect (() => {
+                device.browse_home ();
             });
+            browse_camera_item.activate.connect (() => {
+                device.browse_camera ();
+            });
+            browse_pictures_item.activate.connect (() => {
+                device.browse_pictures ();
+            });
+            browse_download_item.activate.connect (() => {
+                device.browse_download ();
+            });
+            browse_music_item.activate.connect (() => {
+                device.browse_music ();
+            });
+            
+
             send_item.activate.connect (() => {
                 Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog (
                 "Select file", null, Gtk.FileChooserAction.OPEN,
@@ -165,8 +196,18 @@ namespace KDEConnectIndicator {
 
             browse_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
             browse_item.sensitive = reachable;
+
+            browse_home_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
+            browse_home_item.sensitive = reachable;
+            browse_camera_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
+            browse_camera_item.sensitive = reachable;
             browse_pictures_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
             browse_pictures_item.sensitive = reachable;
+            browse_download_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
+            browse_download_item.sensitive = reachable;
+            browse_music_item.visible = paired && device.has_plugin ("kdeconnect_sftp");
+            browse_music_item.sensitive = reachable;
+            
             send_item.visible = paired && device.has_plugin ("kdeconnect_share");
             send_item.sensitive = reachable;
             separator.visible = browse_item.visible || send_item.visible;

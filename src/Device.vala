@@ -355,6 +355,80 @@ namespace KDEConnectIndicator {
                 });
             }
         }
+
+
+        public void browse_home () {
+            if (!has_plugin ("kdeconnect_sftp"))
+                return;
+            if (is_mounted ())
+                open_file (mount_point + "/storage/sdcard0");
+
+            else {
+                mount();
+                Timeout.add (1000, ()=> { // idle for a few second to let sftp kickin
+                        open_file (mount_point + "/storage/sdcard0");
+                        return false;
+                });
+            }
+        }
+        public void browse_camera () {
+            if (!has_plugin ("kdeconnect_sftp"))
+                return;
+            if (is_mounted ())
+                open_file (mount_point+ "/storage/sdcard0/DCIM");
+
+            else {
+                mount();
+                Timeout.add (1000, ()=> { // idle for a few second to let sftp kickin
+                        open_file (mount_point + "/storage/sdcard0/DCIM");
+                        return false;
+                });
+            }
+        }
+        public void browse_pictures () {
+            if (!has_plugin ("kdeconnect_sftp"))
+                return;
+            if (is_mounted ())
+                open_file (mount_point+ "/storage/sdcard0/Pictures");
+
+            else {
+                mount();
+                Timeout.add (1000, ()=> { // idle for a few second to let sftp kickin
+                        open_file (mount_point + "/storage/sdcard0/Pictures");
+                        return false;
+                });
+            }
+        }
+        public void browse_download () {
+            if (!has_plugin ("kdeconnect_sftp"))
+                return;
+            if (is_mounted ())
+                open_file (mount_point+ "/storage/sdcard0/Download");
+
+            else {
+                mount();
+                Timeout.add (1000, ()=> { // idle for a few second to let sftp kickin
+                        open_file (mount_point + "/storage/sdcard0/Download");
+                        return false;
+                });
+            }
+        }
+        public void browse_music () {
+            if (!has_plugin ("kdeconnect_sftp"))
+                return;
+            if (is_mounted ())
+                open_file (mount_point+ "/storage/sdcard0/Music");
+
+            else {
+                mount();
+                Timeout.add (1000, ()=> { // idle for a few second to let sftp kickin
+                        open_file (mount_point + "/storage/sdcard0/Music");
+                        return false;
+                });
+            }
+        }
+
+
         public bool is_mounted () {
             try {
                 var return_variant = conn.call_sync (
