@@ -24,7 +24,6 @@ namespace KDEConnectIndicator {
         private Gtk.SeparatorMenuItem separator;
         private Gtk.MenuItem pair_item;
         private Gtk.MenuItem unpair_item;
-        private Gtk.MenuItem settings_item;
         public DeviceIndicator (string path) {
             this.path = path;
             device = new Device (path);
@@ -64,8 +63,6 @@ namespace KDEConnectIndicator {
             menu.append(pair_item);
             unpair_item = new Gtk.MenuItem.with_label ("Unpair");
             menu.append(unpair_item);
-            settings_item = new Gtk.MenuItem.with_label ("KDE Connect Settings");
-            menu.append(settings_item);
 
             menu.show_all ();
 
@@ -117,12 +114,6 @@ namespace KDEConnectIndicator {
             });
             unpair_item.activate.connect (() => {
                 device.unpair ();
-            });
-            settings_item.activate.connect (() => {
-                try {
-                    Process.spawn_command_line_async ("kcmshell4 kdeconnect");
-                } catch (Error e) {
-                }
             });
 
             device.charge_changed.connect ((charge) => {
